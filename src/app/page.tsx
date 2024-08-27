@@ -51,6 +51,26 @@ export default function Home() {
     }
   }
 
+  const handleCopyAndTranslateToText = () => {
+    setEmojiInput(emojiResult)
+    handleEmojiToText({ preventDefault: () => {} } as React.FormEvent)
+  }
+
+  const handleCopyAndTranslateToEmoji = () => {
+    setTextInput(textResult)
+    handleTextToEmoji({ preventDefault: () => {} } as React.FormEvent)
+  }
+
+  const handleCopyFromEmojiAndSubmit = () => {
+    setTextInput(emojiResult)
+    handleTextToEmoji({ preventDefault: () => {} } as React.FormEvent)
+  }
+
+  const handleCopyFromTextAndSubmit = () => {
+    setEmojiInput(textResult)
+    handleEmojiToText({ preventDefault: () => {} } as React.FormEvent)
+  }
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-100 to-purple-100 py-12 px-4">
       <style dangerouslySetInnerHTML={{__html: spinnerCSS}} />
@@ -68,14 +88,24 @@ export default function Home() {
                 placeholder="Enter text here"
                 rows={4}
               />
-              <button 
-                type="submit" 
-                className="mt-4 w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 flex items-center justify-center"
-                disabled={isLoadingEmoji}
-              >
-                {isLoadingEmoji ? <div className="spinner mr-2"></div> : null}
-                {isLoadingEmoji ? 'Translating...' : 'Translate to Emoji'}
-              </button>
+              <div className="mt-4 flex space-x-2">
+                <button 
+                  type="submit" 
+                  className="flex-grow px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 flex items-center justify-center"
+                  disabled={isLoadingEmoji}
+                >
+                  {isLoadingEmoji ? <div className="spinner mr-2"></div> : null}
+                  {isLoadingEmoji ? 'Translating...' : 'Translate to Emoji'}
+                </button>
+                <button 
+                  type="button"
+                  onClick={handleCopyFromTextAndSubmit}
+                  className="px-4 py-2 bg-blue-300 text-white rounded-md hover:bg-blue-400 transition duration-300"
+                  disabled={isLoadingEmoji || !textResult}
+                >
+                  ↑
+                </button>
+              </div>
             </form>
             <div className="mt-6 p-4 bg-gray-100 rounded-md min-h-[100px] text-lg text-gray-800">
               {emojiResult}
@@ -92,14 +122,24 @@ export default function Home() {
                 placeholder="Enter emojis here"
                 rows={4}
               />
-              <button 
-                type="submit" 
-                className="mt-4 w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition duration-300 flex items-center justify-center"
-                disabled={isLoadingText}
-              >
-                {isLoadingText ? <div className="spinner mr-2"></div> : null}
-                {isLoadingText ? 'Translating...' : 'Translate to Text'}
-              </button>
+              <div className="mt-4 flex space-x-2">
+                <button 
+                  type="submit" 
+                  className="flex-grow px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition duration-300 flex items-center justify-center"
+                  disabled={isLoadingText}
+                >
+                  {isLoadingText ? <div className="spinner mr-2"></div> : null}
+                  {isLoadingText ? 'Translating...' : 'Translate to Text'}
+                </button>
+                <button 
+                  type="button"
+                  onClick={handleCopyFromEmojiAndSubmit}
+                  className="px-4 py-2 bg-green-300 text-white rounded-md hover:bg-green-400 transition duration-300"
+                  disabled={isLoadingText || !emojiResult}
+                >
+                  ↑
+                </button>
+              </div>
             </form>
             <div className="mt-6 p-4 bg-gray-100 rounded-md min-h-[100px] text-lg text-gray-800">
               {textResult}
