@@ -63,12 +63,12 @@ export default function Home() {
 
   const handleCopyFromEmojiAndSubmit = () => {
     setTextInput(emojiResult)
-    handleTextToEmoji({ preventDefault: () => {} } as React.FormEvent)
+    setTimeout(() => handleTextToEmoji({ preventDefault: () => {} } as React.FormEvent), 0)
   }
 
   const handleCopyFromTextAndSubmit = () => {
     setEmojiInput(textResult)
-    handleEmojiToText({ preventDefault: () => {} } as React.FormEvent)
+    setTimeout(() => handleEmojiToText({ preventDefault: () => {} } as React.FormEvent), 0)
   }
 
   return (
@@ -134,7 +134,7 @@ export default function Home() {
                 <button 
                   type="button"
                   onClick={handleCopyFromEmojiAndSubmit}
-                  className="px-4 py-2 bg-green-300 text-white rounded-md hover:bg-green-400 transition duration-300"
+                  className="px-4 py-2 bg-green-300 text-white rounded-md hover:bg-blue-400 transition duration-300"
                   disabled={isLoadingText || !emojiResult}
                 >
                   ↑
