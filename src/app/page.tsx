@@ -1,6 +1,7 @@
 'use client'
 import Image from "next/image";
 import { useState } from 'react'
+import { textToEmoji, emojiToText } from './actions'
 
 export default function Home() {
   const [textInput, setTextInput] = useState('')
@@ -10,14 +11,14 @@ export default function Home() {
 
   const handleTextToEmoji = async (e: React.FormEvent) => {
     e.preventDefault()
-    // TODO: Implement server action call
-    setEmojiResult('Emoji result will appear here')
+    const result = await textToEmoji(textInput)
+    setEmojiResult(result || 'No result')
   }
 
   const handleEmojiToText = async (e: React.FormEvent) => {
     e.preventDefault()
-    // TODO: Implement server action call
-    setTextResult('Text result will appear here')
+    const result = await emojiToText(emojiInput)
+    setTextResult(result || 'No result')
   }
 
   return (
