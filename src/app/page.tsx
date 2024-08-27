@@ -1,5 +1,4 @@
 'use client'
-import Image from "next/image";
 import { useState } from 'react'
 import { textToEmoji, emojiToText } from './actions'
 
@@ -22,45 +21,47 @@ export default function Home() {
   }
 
   return (
-    <main className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-8">Emoji Translator</h1>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <h2 className="text-xl font-semibold mb-4">Text to Emoji</h2>
-          <form onSubmit={handleTextToEmoji}>
-            <textarea
-              className="w-full p-2 border rounded"
-              value={textInput}
-              onChange={(e) => setTextInput(e.target.value)}
-              placeholder="Enter text here"
-              rows={4}
-            />
-            <button type="submit" className="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
-              Translate to Emoji
-            </button>
-          </form>
-          <div className="mt-4 p-2 border rounded min-h-[100px]">
-            {emojiResult}
+    <main className="min-h-screen bg-gradient-to-b from-blue-100 to-purple-100 py-12 px-4">
+      <div className="container mx-auto max-w-4xl">
+        <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">Emoji Translator</h1>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-700">Text to Emoji</h2>
+            <form onSubmit={handleTextToEmoji}>
+              <textarea
+                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                value={textInput}
+                onChange={(e) => setTextInput(e.target.value)}
+                placeholder="Enter text here"
+                rows={4}
+              />
+              <button type="submit" className="mt-4 w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">
+                Translate to Emoji
+              </button>
+            </form>
+            <div className="mt-6 p-4 bg-gray-100 rounded-md min-h-[100px] text-lg">
+              {emojiResult}
+            </div>
           </div>
-        </div>
 
-        <div>
-          <h2 className="text-xl font-semibold mb-4">Emoji to Text</h2>
-          <form onSubmit={handleEmojiToText}>
-            <textarea
-              className="w-full p-2 border rounded"
-              value={emojiInput}
-              onChange={(e) => setEmojiInput(e.target.value)}
-              placeholder="Enter emojis here"
-              rows={4}
-            />
-            <button type="submit" className="mt-2 px-4 py-2 bg-green-500 text-white rounded">
-              Translate to Text
-            </button>
-          </form>
-          <div className="mt-4 p-2 border rounded min-h-[100px]">
-            {textResult}
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-700">Emoji to Text</h2>
+            <form onSubmit={handleEmojiToText}>
+              <textarea
+                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                value={emojiInput}
+                onChange={(e) => setEmojiInput(e.target.value)}
+                placeholder="Enter emojis here"
+                rows={4}
+              />
+              <button type="submit" className="mt-4 w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition duration-300">
+                Translate to Text
+              </button>
+            </form>
+            <div className="mt-6 p-4 bg-gray-100 rounded-md min-h-[100px] text-lg">
+              {textResult}
+            </div>
           </div>
         </div>
       </div>
