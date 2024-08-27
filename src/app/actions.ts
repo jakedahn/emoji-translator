@@ -16,7 +16,7 @@ export async function textToEmoji(text: string) {
       },
       {
         role: "user",
-        content: `Translate the following text to emojis, only return the emojis and nothing else: ${text}`,
+        content: `Translate the following text to emojis, only return the emojis and nothing else. The text should form a coherent sentence. Feel free to get creative.: ${text}`,
       },
     ],
   });
@@ -34,7 +34,7 @@ export async function emojiToText(emojis: string) {
       },
       {
         role: "user",
-        content: `Translate the following emojis to text, only return the text and nothing else: ${emojis}`,
+        content: `Translate the following emojis to text, only return the text and nothing else. : ${emojis}`,
       },
     ],
   });
