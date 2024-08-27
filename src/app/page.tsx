@@ -30,7 +30,7 @@ export default function Home() {
             <h2 className="text-2xl font-semibold mb-4 text-gray-700">Text to Emoji</h2>
             <form onSubmit={handleTextToEmoji}>
               <textarea
-                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800 placeholder-gray-400"
                 value={textInput}
                 onChange={(e) => setTextInput(e.target.value)}
                 placeholder="Enter text here"
@@ -40,7 +40,7 @@ export default function Home() {
                 Translate to Emoji
               </button>
             </form>
-            <div className="mt-6 p-4 bg-gray-100 rounded-md min-h-[100px] text-lg">
+            <div className="mt-6 p-4 bg-gray-100 rounded-md min-h-[100px] text-lg text-gray-800">
               {emojiResult}
             </div>
           </div>
@@ -49,7 +49,7 @@ export default function Home() {
             <h2 className="text-2xl font-semibold mb-4 text-gray-700">Emoji to Text</h2>
             <form onSubmit={handleEmojiToText}>
               <textarea
-                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-800 placeholder-gray-400"
                 value={emojiInput}
                 onChange={(e) => setEmojiInput(e.target.value)}
                 placeholder="Enter emojis here"
@@ -59,7 +59,7 @@ export default function Home() {
                 Translate to Text
               </button>
             </form>
-            <div className="mt-6 p-4 bg-gray-100 rounded-md min-h-[100px] text-lg">
+            <div className="mt-6 p-4 bg-gray-100 rounded-md min-h-[100px] text-lg text-gray-800">
               {textResult}
             </div>
           </div>
