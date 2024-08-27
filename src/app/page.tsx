@@ -2,26 +2,58 @@
 import { useState } from 'react'
 import { textToEmoji, emojiToText } from './actions'
 
+const spinnerCSS = `
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: #09f;
+    animation: spin 1s ease infinite;
+  }
+`
+
 export default function Home() {
   const [textInput, setTextInput] = useState('')
   const [emojiInput, setEmojiInput] = useState('')
   const [textResult, setTextResult] = useState('')
   const [emojiResult, setEmojiResult] = useState('')
+  const [isLoadingEmoji, setIsLoadingEmoji] = useState(false)
+  const [isLoadingText, setIsLoadingText] = useState(false)
 
   const handleTextToEmoji = async (e: React.FormEvent) => {
     e.preventDefault()
-    const result = await textToEmoji(textInput)
-    setEmojiResult(result || 'No result')
+    setIsLoadingEmoji(true)
+    try {
+      const result = await textToEmoji(textInput)
+      setEmojiResult(result || 'No result')
+    } catch (error) {
+      setEmojiResult('An error occurred')
+    } finally {
+      setIsLoadingEmoji(false)
+    }
   }
 
   const handleEmojiToText = async (e: React.FormEvent) => {
     e.preventDefault()
-    const result = await emojiToText(emojiInput)
-    setTextResult(result || 'No result')
+    setIsLoadingText(true)
+    try {
+      const result = await emojiToText(emojiInput)
+      setTextResult(result || 'No result')
+    } catch (error) {
+      setTextResult('An error occurred')
+    } finally {
+      setIsLoadingText(false)
+    }
   }
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-100 to-purple-100 py-12 px-4">
+      <style dangerouslySetInnerHTML={{__html: spinnerCSS}} />
       <div className="container mx-auto max-w-4xl">
         <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">Emoji Translator</h1>
         
@@ -36,8 +68,13 @@ export default function Home() {
                 placeholder="Enter text here"
                 rows={4}
               />
-              <button type="submit" className="mt-4 w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">
-                Translate to Emoji
+              <button 
+                type="submit" 
+                className="mt-4 w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 flex items-center justify-center"
+                disabled={isLoadingEmoji}
+              >
+                {isLoadingEmoji ? <div className="spinner mr-2"></div> : null}
+                {isLoadingEmoji ? 'Translating...' : 'Translate to Emoji'}
               </button>
             </form>
             <div className="mt-6 p-4 bg-gray-100 rounded-md min-h-[100px] text-lg text-gray-800">
@@ -55,8 +92,13 @@ export default function Home() {
                 placeholder="Enter emojis here"
                 rows={4}
               />
-              <button type="submit" className="mt-4 w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition duration-300">
-                Translate to Text
+              <button 
+                type="submit" 
+                className="mt-4 w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition duration-300 flex items-center justify-center"
+                disabled={isLoadingText}
+              >
+                {isLoadingText ? <div className="spinner mr-2"></div> : null}
+                {isLoadingText ? 'Translating...' : 'Translate to Text'}
               </button>
             </form>
             <div className="mt-6 p-4 bg-gray-100 rounded-md min-h-[100px] text-lg text-gray-800">
